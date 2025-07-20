@@ -1,5 +1,7 @@
 package fileProcessor;
 
+import fileProcessor.BadFilePathException.BadFilePathExpection;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,8 +10,7 @@ import java.util.List;
 public class FileProcessor {
 
     public List<String> readFile(Path file) {
-        if (isFileBad(file))
-            return null;
+        fileCheck(file);
 
         try {
             return Files.readAllLines(file);
@@ -19,8 +20,7 @@ public class FileProcessor {
     }
 
     public void write(Path file, String content) {
-        if (isFileBad(file))
-            return;
+        fileCheck(file);
 
         try {
             Files.writeString(file, content);
@@ -29,11 +29,12 @@ public class FileProcessor {
         }
     }
 
-    private boolean isFileBad(Path file) {
-        if (!FilePathValidator.isFileExists(file)) {
-            System.out.printf("Cannot access file %s", file.toAbsolutePath());
-            return true;
+    private void fileCheck(Path file) {
+        try {
+              FilePathValidator.isFileBad(file);
+        } catch (BadFilePathExpection e) {
+            throw new RuntimeException(e);
         }
-        return false;
     }
+
 }
