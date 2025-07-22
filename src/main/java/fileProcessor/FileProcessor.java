@@ -1,16 +1,18 @@
 package fileProcessor;
 
-import fileProcessor.BadFilePathException.BadFilePathExpection;
+import Validator.Validator;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class FileProcessor {
+    Validator validator = new Validator();
 
-    public List<String> readFile(Path file) {
-        fileCheck(file);
+    public List<String> readFile(String filePath) {
+        Path file = Path.of(filePath);
 
         try {
             return Files.readAllLines(file);
@@ -19,22 +21,28 @@ public class FileProcessor {
         }
     }
 
-    public void write(Path file, String content) {
-        fileCheck(file);
+    public void appendToFile(String filePath, String content) {
+        Path file = Path.of(filePath);
 
         try {
-            Files.writeString(file, content);
+            Files.writeString(file, content, StandardOpenOption.APPEND);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private void fileCheck(Path file) {
+    public void clearFile(String filePath){
+        Path file = Path.of(filePath);
+
         try {
-              FilePathValidator.isFileBad(file);
-        } catch (BadFilePathExpection e) {
+            Files.write(file, new byte[0]);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void validate(Path file) {
+        validator.validateFile(file);
     }
 
 }
