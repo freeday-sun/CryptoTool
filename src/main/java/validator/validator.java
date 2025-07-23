@@ -1,14 +1,13 @@
-package Validator;
+package validator;
 
-import Validator.BadKeyException.BadKey;
+import validator.BadKeyException.BadKey;
 import fileProcessor.BadFilePathException.BadFilePathExpection;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 
-public class Validator {
+public class validator {
 
     public static void validateKey(int key){
         if (key < 0) {

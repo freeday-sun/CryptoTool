@@ -1,6 +1,6 @@
 package fileProcessor;
 
-import Validator.Validator;
+import validator.validator;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class FileProcessor {
-    Validator validator = new Validator();
+    validator validator = new validator();
 
     public List<String> readFile(String filePath) {
         Path file = Path.of(filePath);

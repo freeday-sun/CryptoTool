@@ -1,7 +1,6 @@
 package cryptoAlgorithms.caesar;
 
-import Validator.BadKeyException.BadKey;
-import Validator.Validator;
+import validator.validator;
 import fileProcessor.FileProcessor;
 
 import java.util.Arrays;
@@ -13,7 +12,7 @@ public class Caesar {
 
     public void encrypt(String inputFile, String outputFile, int key) {
         List<String> fileContent = fileProcessor.readFile(inputFile);
-        Validator.validateKey(key);
+        validator.validateKey(key);
         fileProcessor.clearFile(outputFile);
 
         for (String line : fileContent) {
@@ -30,7 +29,7 @@ public class Caesar {
             }
             fileProcessor.appendToFile(outputFile, new String(tempArray) + "\n");
         }
-
+        System.exit(0);
     }
 
     public void decrypt(String inputFile, String outputFile, int key) {

@@ -1,4 +1,4 @@
-package Validator.BadKeyException;
+package validator.BadKeyException;
 
 public class BadKey extends RuntimeException {
     public BadKey(String message) {
